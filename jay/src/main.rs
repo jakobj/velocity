@@ -10,10 +10,10 @@ static STR_ASSETS: &'static [(&str, &str)] = &[
     ("/style.css", include_str!("style.css")),
 ];
 
-
-static BYTE_ASSETS: &'static [(&str, &'static [u8])] = &[
-    ("/figures/photo6019329608475848615_crop.jpg", include_bytes!("photo6019329608475848615_crop.jpg")),
-];
+static BYTE_ASSETS: &'static [(&str, &'static [u8])] = &[(
+    "/figures/photo6019329608475848615_crop.jpg",
+    include_bytes!("photo6019329608475848615_crop.jpg"),
+)];
 
 fn main() {
     let rt = runtime::Builder::new_current_thread()
@@ -27,9 +27,7 @@ async fn run() {
     let addr = SocketAddr::from(([0, 0, 0, 0], 8080));
 
     let make_svc = make_service_fn(|_conn| async {
-        Ok::<_, Infallible>(service_fn(|req| async {
-            Ok::<_, Infallible>(handle(req))
-        }))
+        Ok::<_, Infallible>(service_fn(|req| async { Ok::<_, Infallible>(handle(req)) }))
     });
 
     let server = Server::bind(&addr).serve(make_svc);
