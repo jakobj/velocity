@@ -5,15 +5,16 @@ use std::net::SocketAddr;
 use tokio::runtime;
 
 static STR_ASSETS: &'static [(&str, &str)] = &[
-    ("/cv.html", include_str!("cv.html")),
-    ("/static.html", include_str!("static.html")),
-    ("/style.css", include_str!("style.css")),
+    // include your "string" assets (html, css) using `include_str!` in
+    // ALPHABETICAL ORDER! first value is the route, second the file path
+    ("/static.html", include_str!("../../assets/static.html")),
 ];
 
-static BYTE_ASSETS: &'static [(&str, &'static [u8])] = &[(
-    "/figures/photo6019329608475848615_crop.jpg",
-    include_bytes!("photo6019329608475848615_crop.jpg"),
-)];
+static BYTE_ASSETS: &'static [(&str, &'static [u8])] = &[
+    // include your "byte" assets (images, ...) using `include_bytes!` in
+    // ALPHABETICAL ORDER! first value is the route, second the file path
+    ("/ferris.gif", include_bytes!("../../assets/ferris.gif")),
+];
 
 fn main() {
     let rt = runtime::Builder::new_current_thread()
